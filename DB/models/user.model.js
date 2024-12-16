@@ -18,7 +18,6 @@ const userSchema = new Schema({
     required: true,
     
     },
-  phone: Number,
   gender: {
     type: String,
     enum:['male', 'female'],
@@ -32,7 +31,6 @@ const userSchema = new Schema({
     url: {type: String, default: ""},
     id: {type: String, default: ""}
   },
-  coverImgs: [{url: {type: String, required: true}, id: {type: String, required: true}}],
   chapter:{
     id:{type: mongoose.Schema.Types.ObjectId, ref: 'Chapter'},
     progress: {
