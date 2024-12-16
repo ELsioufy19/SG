@@ -5,7 +5,7 @@ import catchError from "../../utils/catchError.js";
 import { updateChapterProgress } from "../chapter/chapter.controller.js";
 const router = new Router();
 
-router.get("", isAuthenticated, catchError(get));
+router.get("user", isAuthenticated, catchError(get));
 router.put('/chapters', updateChapterProgress);
 
 export default router;

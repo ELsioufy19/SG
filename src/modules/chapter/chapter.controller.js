@@ -3,12 +3,14 @@ import Chapter from '../../../DB/models/chapter.model.js';
 // Create a new chapter
 export const createChapter = async (req, res) => {
     try {
-        const { title, content, chapterNumber,} = req.body;
+        console.log(req.body)
+        const { title, content, chapterNumber, cover,} = req.body;
 
         const chapter = new Chapter({
             title,
             content,
             chapterNumber,
+            cover,
             
         });
 
