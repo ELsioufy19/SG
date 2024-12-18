@@ -63,3 +63,52 @@ export const updateUser = async (req, res) => {
         data: user
     });
 }
+
+export const getUserById = async (req, res) => {
+    const user = await User.findById(req.params.id)
+        .select('-password');
+    
+    return res.json({
+        success: true,
+        message: "User retrieved successfully",
+        data: user
+    });
+}
+
+export const login = async (req, res) => {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+        return res.status(401).json({
+            success: false,
+            message: "Invalid credentials"
+        });
+    }
+
+    const isPasswordValid = password === user.password;
+    if (!isPasswordValid) {
+        return res.status(401).json({
+            success: false,
+            message: "Invalid credentials"
+        });
+    }
+
+    // Update user status to online
+    user.status = "online";
+    await user.save();
+
+    return res.status(200).json({
+        success: true,
+        message: "Login successful",
+        data: {
+            _id: user._id,
+            userName: user.userName,
+            email: user.email,
+            role: user.role,
+            status: user.status,
+            porfilePic: user.porfilePic,
+            chapter: user.chapter
+        }
+    });
+}
