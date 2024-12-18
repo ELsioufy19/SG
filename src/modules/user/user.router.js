@@ -3,7 +3,7 @@ import { Router } from "express";
 import { createUser } from "./user.controller.js";
 import catchError from "../../utils/catchError.js";
 import { updateChapterProgress } from "../chapter/chapter.controller.js";
-import { getUserById } from "./user.controller.js";
+import { getUserById , login } from "./user.controller.js";
 
 const router = new Router();
 
