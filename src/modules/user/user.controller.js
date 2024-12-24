@@ -4,7 +4,7 @@ import express from "express";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
 import { sendEmail } from '../../utils/sendEmail.js';
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 
 export const createUser = async (req, res) => {
