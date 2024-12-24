@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 
 const api = process.env.MODE === "DEV" ? `:${process.env.PORT}` : ""; // Fixes colon syntax issue
-console.log(api, process.env.EMAIL, process.env.EMAIL_PASS);
+
 
 const transporter = nodemailer.createTransport({
   service: "gmail", // Gmail SMTP configuration
