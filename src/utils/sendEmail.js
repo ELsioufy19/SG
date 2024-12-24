@@ -1,26 +1,32 @@
 import nodemailer from "nodemailer";
-const api = process.env.MODE === "DEV" ? `:${process.env.PORT}` : ""
+
+const api = process.env.MODE === "DEV" ? `:${process.env.PORT}` : ""; // Fixes colon syntax issue
+console.log(api, process.env.EMAIL, process.env.EMAIL_PASS);
+
 const transporter = nodemailer.createTransport({
-  host: api,
-  port: 465,
-  secure: true,
-  service: "gmail",
+  service: "gmail", // Gmail SMTP configuration
   auth: {
-    user: process.env.EMAIL,
-    pass: process.env.EMAIL_PASS,
+    user:  "zeiadkhaled2825@gmail.com",
+    pass: "qknj wuqc rszu vdbw"
   },
+  tls: {
+    rejectUnauthorized: false}
 });
 
 export const sendEmail = async ({ to, subject, temp, attachments }) => {
-  const info = await transporter
-    .sendMail({
-      from: `'"kiddo app " <${process.env.EMAIL}>'`, // sender address
+  try {
+    const info = await transporter.sendMail({
+      from:'"kiddo app " <zeiadkhaled2825@gmail.com>"' , // Corrected template literal usage
       to,
       subject,
       html: temp,
       attachments,
-    })
-    .catch((err) => console.log(err));
-  if (info.accepted.length >= 0) return true;
-  return false;
+    });
+
+    console.log("Email sent: ", info.response);
+    return info.accepted.length > 0; // Return true if email is accepted
+  } catch (err) {
+    console.error("Error sending email: ", err);
+    return false; // Return false on failure
+  }
 };

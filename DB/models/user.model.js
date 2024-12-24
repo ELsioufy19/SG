@@ -41,7 +41,19 @@ const userSchema = new Schema({
       type : Number,
       default : 0
     },
+
+  },
+  token:{
+    type: String,
+  },
+  favourites: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Chapter',
+  }],
+  forgetCode: {
+    type: String,
   }
+
 
 });
 

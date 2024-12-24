@@ -7,10 +7,16 @@ const chapterSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  description: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   content: [
     {
       value: { type: String, required: true },
       translate_ar: { type: String, required: true },
+      translate_gr:{ type: String, required: true},
       photo: {
         id: { type: String, required: true },
         url: { type: String, required: true },
@@ -33,7 +39,8 @@ const chapterSchema = new mongoose.Schema({
   cover: {
     id: { type: String, required: true },
     url: { type: String, required: true },
-  }
+  },
+  
   
 },{timestamps: true});
 
