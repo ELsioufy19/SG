@@ -27,11 +27,11 @@ export const createUser = async (req, res) => {
             message: "Email already exists"
         });
     }
-
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
         userName,
         email,
-        password,
+        password: hashedPassword,
         gender,
         status: status || "offline",
         role: role || "user",
@@ -84,6 +84,9 @@ export const getUserById = async (req, res) => {
 export const login = async (req, res) => {
     const { email, password } = req.body;
 
+    
+
+
     const user = await User.findOne({ email });
     if (!user) {
         return res.status(401).json({
@@ -92,13 +95,9 @@ export const login = async (req, res) => {
         });
     }
 
-    const isPasswordValid = password === user.password;
-    if (!isPasswordValid) {
-        return res.status(401).json({
-            success: false,
-            message: "Invalid credentials"
-        });
-    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) throw new Error("Invalid password");
+    
 
     const token = jwt.sign(
         { id: user._id, email: user.email },
@@ -149,6 +148,7 @@ export const resetPass = async (req, res, next) => {
   }
 
   // Hash new password
+  
   const hashedPassword = await bcrypt.hash(newPassword, 10);
 
   // Save new password and clear token
