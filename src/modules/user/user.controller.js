@@ -30,14 +30,7 @@ export const createUser = async (req, res) => {
       userName,
       email,
       password: hashedPassword,
-      gender,
-      status: status || "offline",
-      role: role || "user",
       isConfirmed: isConfirmed || false,
-      porfilePic: {
-          url: porfilePic?.url || "",
-          id: porfilePic?.id || ""
-      },
       chapter: [{
           id: chapter.id || null,
           progress: chapter.progress || 0,
