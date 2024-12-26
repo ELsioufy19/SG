@@ -30,7 +30,6 @@ export const createUser = async (req, res) => {
       userName,
       email,
       password: hashedPassword,
-      isConfirmed: isConfirmed || false,
       chapter: [{
           id: chapter.id || null,
           progress: chapter.progress || 0,
