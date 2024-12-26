@@ -45,7 +45,7 @@ const userSchema = new Schema({
   }
 
 
-});
+},{toJSON: {virtuals: true}, toObject: {virtuals: true }});
 
 const User = mongoose.model.User || model('User', userSchema)
 export default User;

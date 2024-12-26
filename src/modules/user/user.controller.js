@@ -9,6 +9,7 @@ import { profile } from 'console';
 import cloudinary from '../../utils/cloudinary.js';
 
 
+
 export const createUser = async (req, res) => {
   const {
       userName,
@@ -162,6 +163,24 @@ export const resetPass = async (req, res, next) => {
 
   res.status(200).send("Password has been reset successfully!");
 };
+
+export const userProgress = async (req, res) => {
+  
+  const user = await User.findById(req.user._id).populate({
+    path: 'chapter.id',
+    select: 'chapterNumber', // Fetch only the fields you need from the Chapter model
+  });
+  const lastChapter = user.chapter[user.chapter.length - 1]
+  console.log(user);
+  const result = {"chapterProgress": (lastChapter.id.chapterNumber /5)*100, "quizProgress": (lastChapter.id.chapterNumber /5)*100, "videosProgress": (lastChapter.id.chapterNumber /5)*100}
+   console.log("string",lastChapter) 
+  return res.json({
+        success: true,
+        message: "User progress retrieved successfully",
+        result
+    });
+}
+  
 
 
 const router = express.Router();

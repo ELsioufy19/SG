@@ -4,9 +4,10 @@ import { createUser, updateUser } from "./user.controller.js";
 import catchError from "../../utils/catchError.js";
 import { updateChapterProgress } from "../chapter/chapter.controller.js";
 import { getUserById } from "./user.controller.js";
-import { login,forgetPass,resetPass } from './user.controller.js';
+import { login,forgetPass,resetPass,userProgress } from './user.controller.js';
 import uploadFile from "../../utils/multer.js";
 import { typesObj } from "../../utils/multer.js";
+
 
 const router = new Router();
 
@@ -41,7 +42,7 @@ router.post('/login', login);
 router.post('/forget-password', forgetPass);
 router.post('/reset-password/:code', resetPass);
 router.patch('/update-profile', isAuthenticated,uploadFile(typesObj.img).single("img"),updateUser);
-
+router.get('/user-progress', isAuthenticated, userProgress);
 
 export default router;
 
