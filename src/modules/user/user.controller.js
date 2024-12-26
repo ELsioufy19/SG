@@ -14,9 +14,10 @@ export const createUser = async (req, res) => {
       userName,
       email,
       password,
-      isConfirmed,
+      confirmPassword,
       chapter
   } = req.body;
+  
 
   const existingUser = await User.findOne({ email });
   if (existingUser) {
@@ -25,6 +26,8 @@ export const createUser = async (req, res) => {
           message: "Email already exists"
       });
   }
+  if (password !== confirmPassword)
+    throw new Error("passowrd didn't match confirm password");
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = await User.create({
       userName,

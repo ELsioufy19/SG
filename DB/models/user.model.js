@@ -20,6 +20,7 @@ const userSchema = new Schema({
     },
   forgetCode: {type: String, },
   activationCode: {type: String},
+  isConfirmed: {type: String,},
   porfilePic: {
     url: {type: String, default: ""},
     id: {type: String, default: ""}
