@@ -3,6 +3,7 @@ import authRouter from "./auth/auth.router.js";
 import catRouter from "./category/category.router.js";
 import userRouter from "./user/user.router.js";
 import express from 'express'
+import videoRouter from "./videos/video.router.js";
 // import bodyParser from 'bodyParser'
 const app = express()
 
@@ -16,6 +17,7 @@ const appRouter = (app)=>{
   app.use("/category", catRouter);
   app.use("/user", userRouter);
   app.use("/chapter", chapterRouter);
+  app.use("/video",videoRouter)
   app.all("*", (req, res, next) =>
     next(new Error("page not found", { cause: 404 }))
 );

@@ -18,12 +18,6 @@ const userSchema = new Schema({
     required: true,
     
     },
-  gender: {
-    type: String,
-    enum:['male', 'female'],
-    },
-  status: {type: String, enum:["offline", "online"], default: "offline"},
-  role: {type: String, enum: ["user", "admin"], default: "user"},
   isConfirmed: {type: Boolean, default: false, },
   forgetCode: {type: String, },
   activationCode: {type: String},
@@ -31,18 +25,14 @@ const userSchema = new Schema({
     url: {type: String, default: ""},
     id: {type: String, default: ""}
   },
-  chapter:{
-    id:{type: mongoose.Schema.Types.ObjectId, ref: 'Chapter'},
-    progress: {
-      type: Number,
-      default: 0,
+  chapter: [
+    {
+      id: { type: mongoose.Schema.Types.ObjectId, ref: 'Chapter', required: true },
+      progress: { type: Number, default: 0 }, // Overall progress for the chapter
+      quizProgress: { type: Number, default: 0 }, // Progress for quizzes
+      videosProgress: { type: Number, default: 0 }, // Progress for videos
     },
-    quizprogress :{
-      type : Number,
-      default : 0
-    },
-
-  },
+  ],
   token:{
     type: String,
   },
